@@ -15,11 +15,8 @@ function App() {
 
   // function for currency conversion
   const convertAmount = (userAmountVar) => {
-    console.log(userAmountVar)
     setConvertedAmount(userAmountVar * parseFloat(currencyTypeData[to]))
   }
-  
-  console.log(userAmount)
 
   // function for swap the field and values
   const handleSwap = () => {

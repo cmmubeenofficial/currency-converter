@@ -8,7 +8,6 @@ export const useCurrencyInfo = (currencyType) => {
             const API_URL = `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${currencyType}.json?cache-bust=${new Date().getTime()}`
             const res = await fetch(API_URL)
             const jsonData = await res.json()
-            // console.log(jsonData)
             setData(jsonData[currencyType])
 
         }
