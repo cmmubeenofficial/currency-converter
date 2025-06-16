@@ -1,10 +1,9 @@
 import { useRef, useState } from 'react'
 import "./index.css"
-import { InputBox } from './components/importIndex.js'
+import InputBox from './components/InputBox.jsx'
 import { useCurrencyInfo } from './Hooks/useCurrencyInfo.js'
 
 function App() {
-
   const [from, setFrom] = useState("usd")
   const [to, setTo] = useState("pkr")
   const userValue = useRef("")
@@ -13,37 +12,27 @@ function App() {
 
   const currencyTypeData = useCurrencyInfo(from)
 
-  // function for currency conversion
+  // Function for currency conversion
   const convertAmount = (userAmountVar) => {
     setConvertedAmount(userAmountVar * parseFloat(currencyTypeData[to]))
   }
 
-  // function for swap the field and values
+  // Function to swap the field and values
   const handleSwap = () => {
-    // swap currency types
     setFrom(to)
     setTo(from)
-
-    // swap amounts
     setUserAmount(0)
     setConvertedAmount(0)
-
-    // reset value to 0 on card 1 input field
     userValue.current.value = ""
   }
 
   return (
-  <>
-    <div className="bg-gray-950 h-[100vh] flex justify-center items-center" style={{
-      backgroundImage: `url('https://static.vecteezy.com/system/resources/previews/040/959/652/non_2x/currency-exchange-concept-with-graph-chart-and-dollar-coin-forex-trading-financial-markets-and-global-economy-design-background-illustration-vector.jpg')`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    }}>
-
-      {/* cards container */}
-      <div className="cards-container bg-[#a9b5c55e] border-[1px] border-[#a9b5c5] rounded-lg h-[60%] w-[40%] relative">
-
-        {/* card 1 */}
+    <div className="bg-gradient-to-br from-indigo-700 via-purple-600 to-blue-500 min-h-[100dvh] flex items-center justify-center p-2 sm:p-4">
+      {/* Cards container */}
+      <div className="w-full max-w-[320px] sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-4 sm:p-6 border border-white/20 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-500">
+        <h1 className="text-xl sm:text-2xl font-bold text-white text-center mb-4 sm:mb-6 drop-shadow-lg">Currency Converter</h1>
+        
+        {/* Card 1 */}
         <InputBox
           label="From"
           defaultValue={from}
@@ -53,12 +42,20 @@ function App() {
           userValue={userValue}
         />
 
-        {/* swap button */}
-        <div className='absolute left-1/2 top-[155px] -translate-x-1/2 -translate-y-1/2'>
-          <button onClick={handleSwap} className='bg-blue-800 text-white px-3 py-1.5 rounded-md border-white border-[1px]'>swap</button>
+        {/* Swap button */}
+        <div className="flex justify-center my-3 sm:my-4">
+          <button 
+            onClick={handleSwap} 
+            className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-white/30 hover:from-indigo-600 hover:to-blue-600 hover:scale-110 hover:shadow-lg hover:rotate-2 transform transition-all duration-300 flex items-center gap-2 text-sm sm:text-base"
+          >
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m-12 6H4m0 0l4 4m-4-4l4-4"></path>
+            </svg>
+            Swap
+          </button>
         </div>
 
-        {/* card 2 */}
+        {/* Card 2 */}
         <InputBox
           label="To"
           defaultValue={to}
@@ -70,16 +67,20 @@ function App() {
         />
 
         {/* Convert Currency Button */}
-        <div className='px-5'>
-          <button onClick={ () => {
-            let userAmountVar = parseFloat(userValue.current.value)
-            setUserAmount(userAmountVar)
-            convertAmount(userAmountVar)
-            }} className='bg-blue-800 text-white py-[10px] w-full rounded-lg'>Convert {from.toUpperCase()} to {to.toUpperCase()}</button>
+        <div className="px-4 sm:px-5 mt-4 sm:mt-6">
+          <button 
+            onClick={() => {
+              let userAmountVar = parseFloat(userValue.current.value)
+              setUserAmount(userAmountVar)
+              convertAmount(userAmountVar)
+            }} 
+            className="bg-gradient-to-r from-teal-400 to-cyan-400 text-gray-800 font-semibold py-2 sm:py-3 w-full rounded-lg hover:from-teal-500 hover:to-cyan-500 hover:-translate-y-1 hover:shadow-lg transform transition-all duration-300 text-sm sm:text-base"
+          >
+            Convert {from.toUpperCase()} to {to.toUpperCase()}
+          </button>
         </div>
       </div>
     </div>
-  </>
   )
 }
 
